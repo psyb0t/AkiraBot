@@ -1,0 +1,20 @@
+<div id="chat-container">
+  <div id="akira-chatarea" class="jumbotron"></div>
+
+  <form id="user-form" method="POST" action="/">
+    <div class="input-group">
+      <span class="input-group-addon"><span class="fa fa-edit"></span> </span>
+      <input class="form-control" type="text" name="user_text" autofocus autocomplete="off">
+      <input type="hidden" name="action" value="chat">
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-default"><span class="fa fa-send-o"></span></button>
+      </span>
+    </div>
+  </form>
+</div>
+
+<script>
+  if(typeof(jQuery) != 'undefined') {
+    jQuery('[name="user_text"]').focus();
+  }
+</script>

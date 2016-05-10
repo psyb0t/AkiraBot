@@ -1,0 +1,7 @@
+{% if response_text %}
+  {{ response_text|safe|urlize(40, target="_blank") }}
+{% endif %}
+
+{% if response_image %}
+  <img style="margin: 0 auto" class="img-responsive" src="data:image/png;base64,{{ response_image }}">
+{% endif %}

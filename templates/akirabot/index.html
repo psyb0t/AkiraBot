@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta name="author" content="psyb0t">
+    
+    <title>{{ config.bot_name }} Bot</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <style>
+      html, body {
+        height: 100%;
+      }
+      
+      #wrapper {
+          padding-left: 0;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+          height: 100%;
+      }
+
+      #wrapper.toggled {
+          padding-left: 250px;
+      }
+
+      #sidebar-wrapper {
+          z-index: 1000;
+          position: fixed;
+          left: 250px;
+          width: 0;
+          height: 100%;
+          margin-left: -250px;
+          overflow-y: auto;
+          background: #000;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+      }
+
+      #wrapper.toggled #sidebar-wrapper {
+          width: 250px;
+      }
+
+      #page-content-wrapper {
+          width: 100%;
+          position: absolute;
+          padding: 15px;
+          height: 100%;
+      }
+
+      #wrapper.toggled #page-content-wrapper {
+          position: absolute;
+          margin-right: -250px;
+      }
+      
+      #menu-toggle {
+        margin-left: -15px;
+        margin-top: -10px;
+        margin-bottom: 3px;
+        padding: 5px;
+        display: inline-block;
+        position: fixed;
+        z-index: 100;
+      }
+
+      .sidebar-nav {
+          position: absolute;
+          top: 0;
+          width: 250px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+
+      .sidebar-nav li {
+          text-indent: 20px;
+          line-height: 40px;
+      }
+
+      .sidebar-nav li a {
+          display: block;
+          text-decoration: none;
+          color: #999999;
+          cursor: pointer;
+      }
+
+      .sidebar-nav li a:hover {
+          text-decoration: none;
+          color: #fff;
+          background: rgba(255,255,255,0.2);
+      }
+
+      .sidebar-nav li a:active,
+      .sidebar-nav li a:focus {
+          text-decoration: none;
+      }
+
+      .sidebar-nav > .sidebar-brand {
+          font-size: 18px;
+          line-height: 20px;
+          text-align: center;
+          text-indent: 0px;
+      }
+
+      .sidebar-nav > .sidebar-brand h1 {
+          margin: 0;
+      }
+
+      .sidebar-nav > .sidebar-brand a {
+          color: #999999;
+      }
+
+      .sidebar-nav > .sidebar-brand .social {
+          padding-right: 10px;
+      }
+      
+      .sidebar-nav > .sidebar-brand .social a {
+          display: inline;
+      }
+
+      .sidebar-nav > .sidebar-brand a:hover {
+          color: #fff;
+          background: none;
+      }
+      
+      #page-content-wrapper .container-fluid,
+      #page-content-wrapper .container-fluid .row,
+      #page-content-wrapper .container-fluid .row .col-lg-12 {
+        height: 100%;
+      }
+      
+      #dynamic-page-content {
+        height: 100%;
+      }
+      
+      #chat-container {
+        height: 100%;
+        position: relative;
+        padding-bottom: 50px;
+        background: #eee;
+        border-radius: 4px;
+      }
+      
+      #user-form {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+      
+      #user-form .input-group-addon {
+        border-top-left-radius: 0;
+      }
+      
+      #user-form .input-group-btn .btn {
+        border-top-right-radius: 0;
+      }
+      
+      #akira-chatarea {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: inherit;
+      }
+      
+      #akira-chatarea .message {
+        margin: 5px;
+      }
+      
+      #akira-chatarea .message .alert {
+        margin: 0;
+      }
+      
+      #sidebar-wrapper .twitter-timeline {
+        width: 200px !important;
+        margin-top: 10px !important;
+      }
+
+      @media(min-width:768px) {
+          #wrapper {
+              padding-left: 250px;
+          }
+
+          #wrapper.toggled {
+              padding-left: 0;
+          }
+
+          #sidebar-wrapper {
+              width: 250px;
+          }
+
+          #wrapper.toggled #sidebar-wrapper {
+              width: 0;
+          }
+
+          #page-content-wrapper {
+              padding: 20px;
+              position: relative;
+          }
+
+          #wrapper.toggled #page-content-wrapper {
+              position: relative;
+              margin-right: 0;
+          }
+      }
+    </style>
+  </head>
+  <body>
+    {{ config.tracking_code|safe }}
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="/">
+              <img style="margin: 0 auto;" class="thumbnail" alt="{{ config.bot_name }} Bot" src="{{ url_for('static', filename='akirabot_face.jpg') }}">
+              <h1>{{ config.bot_name }} Bot</h1>
+            </a>
+            <div class="social text-right">
+              <a href="https://twitter.com/{{ config.twitter['username'] }}" target="_BLANK" title="My Twitter Profile"><span class="fa fa-twitter"></span></a>
+              <a href="https://www.facebook.com/{{ config.facebook['page_id'] }}/" target="_BLANK" title="My Facebook Page"><span class="fa fa-facebook"></span></a>
+            </div>
+          </li>
+          
+          <li>
+            <a data-target="chat"><span class="fa fa-comments-o"></span> Chat with me</a>
+          </li>
+          
+          <li>
+            <a data-target="functions"><span class="fa fa-info-circle"></span> What I can do</a>
+          </li>
+          
+          <li>
+            <a class="twitter-timeline" href="https://twitter.com/AkiraChatBot" data-widget-id="729615560984678400"></a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          </li>
+        </ul>
+      </div>
+      
+      <div id="page-content-wrapper">
+        <button class="btn btn-default btn-sm" id="menu-toggle"><span class="fa fa-exchange"></span></button>
+        
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <div id="dynamic-page-content">
+                {% include('akirabot/chat.html') %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+    <script>
+      function akira_chat_scroll() {
+        if(jQuery('#akira-chatarea').length) {
+          jQuery('#akira-chatarea').animate({
+            scrollTop: jQuery('#akira-chatarea')[0].scrollHeight
+          }, 200);
+        }        
+      }
+      
+      function chatarea_add(html) {
+        jQuery(html).hide().appendTo('#akira-chatarea').fadeIn(200);
+      }
+      
+      function akira_status(text) {
+        chatarea_add(
+          '<div class="message akira-status text-left">' +
+            '<div class="alert alert-success" style="max-width: 90%; display: inline-block">' +
+              '<p><span class="fa fa-spin fa-cog"></span> ' + text + '</p>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+      
+      function akira_statuses_rm() {
+        jQuery('#akira-chatarea .akira-status').remove();
+      }
+      
+      function akira_response(text) {
+        chatarea_add(
+          '<div class="message akira-message text-left">' +
+            '<div class="alert alert-info" style="max-width: 90%; display: inline-block;">' + 
+              '<p>' + text + '</p>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+      
+      function user_send(text) {
+        chatarea_add(
+          '<div class="message user-message text-right">' +
+            '<div class="alert alert-warning" style="max-width: 90%; display: inline-block;">' +
+              '<p>' + text + '</p>' +
+            '</div>' +
+          '</div>'
+        );
+        
+        akira_status('Typing...');
+        akira_chat_scroll();
+        
+        jQuery.post('/', 'action=chat&user_text=' + text, function(result) {
+          akira_statuses_rm();
+          akira_response(result);
+          akira_chat_scroll();
+        });
+      }
+      
+      jQuery(document).ready(function() {
+        jQuery(window).resize(function() {
+          akira_chat_scroll();
+        });
+        
+        jQuery('body').on('mouseover focus', 'a', function() {
+          window.status = '';
+        });
+        
+        jQuery('#wrapper').on('click', '#menu-toggle', function(e) {
+          e.preventDefault();
+          jQuery('#wrapper').toggleClass('toggled');
+        });
+        
+        jQuery('#wrapper').on('submit', '#user-form', function(e) {
+          e.preventDefault();
+          
+          var user_text = jQuery('#user-form [name="user_text"]').val();
+          jQuery('#user-form [name="user_text"]').val('');
+          
+          if(user_text) {
+            user_send(user_text);
+          }
+        });
+        
+        jQuery('#wrapper').on('click', '.sidebar-nav a[data-target]', function(e) {
+          e.preventDefault();
+          
+          if(typeof(jQuery(this).attr('data-target')) != 'undefined') {
+            var target = jQuery(this).attr('data-target');
+            
+            jQuery('#dynamic-page-content').html('<p class="text-center"><span class="fa fa-spin fa-refresh fa-lg"></span> Please wait! Loading...</p>');
+            jQuery.post('/', 'action=' + target, function(result) {
+              jQuery('#dynamic-page-content').html(result);
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
