@@ -60,9 +60,18 @@ if __name__ == '__main__':
         sys.stdout.write('You: ')
         user_input = str(raw_input())
         
-        print '%s: %s' % (config.bot_name, fn.make_response(
+        response = fn.make_response(
           user_input.encode('utf-8').strip()
-        ).encode('utf-8'))
+        )
+        
+        img = ''
+        if type(response) == tuple:
+          response, img = response
+        
+        print '%s: %s' % (
+          config.bot_name, '%s%s' %
+          (response.encode('utf-8'), ': %s' % img if img else '')
+        )
     except KeyboardInterrupt:
       sys.exit()
   

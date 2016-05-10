@@ -1,3 +1,7 @@
+# Akira Bot
+
+[http://akirabot.ml/](http://akirabot.ml/)
+
 ## What I can do
 
 ### Twitter Interact
@@ -59,6 +63,12 @@ Eg: "**What is the weather like in London?**"
 I can also give you a five-day weather forecast for a city if you ask me.
 
 Eg: "**What is the weather forecast for New Your,NY?**"
+
+### Cat Gifs!
+
+I love all Internet cats! Tell me to show you a gif and I'll gladly smile with you at it!
+
+Eg: "**Show me a cat gif!**", "**Show me a kitten gif.**"
 
 ### I can be your Mini Me
 

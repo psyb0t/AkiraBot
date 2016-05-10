@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="index, follow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
     <meta name="author" content="psyb0t">
@@ -128,12 +128,14 @@
           color: #999999;
       }
 
-      .sidebar-nav > .sidebar-brand .social {
+      .sidebar-nav .social {
           padding-right: 10px;
       }
       
-      .sidebar-nav > .sidebar-brand .social a {
+      .sidebar-nav .social a {
           display: inline;
+          padding: 10px;
+          text-indent: 0;
       }
 
       .sidebar-nav > .sidebar-brand a:hover {
@@ -235,10 +237,6 @@
               <img style="margin: 0 auto;" class="thumbnail" alt="{{ config.bot_name }} Bot" src="{{ url_for('static', filename='akirabot_face.jpg') }}">
               <h1>{{ config.bot_name }} Bot</h1>
             </a>
-            <div class="social text-right">
-              <a href="https://twitter.com/{{ config.twitter['username'] }}" target="_BLANK" title="My Twitter Profile"><span class="fa fa-twitter"></span></a>
-              <a href="https://www.facebook.com/{{ config.facebook['page_id'] }}/" target="_BLANK" title="My Facebook Page"><span class="fa fa-facebook"></span></a>
-            </div>
           </li>
           
           <li>
@@ -247,6 +245,14 @@
           
           <li>
             <a data-target="functions"><span class="fa fa-info-circle"></span> What I can do</a>
+          </li>
+          
+          <li>
+            <div class="social text-right">
+              <a href="https://twitter.com/{{ config.twitter['username'] }}" target="_BLANK" title="My Twitter Profile"><span class="fa fa-twitter fa-lg"></span></a>
+              <a href="https://www.facebook.com/{{ config.facebook['page_id'] }}/" target="_BLANK" title="My Facebook Page"><span class="fa fa-facebook fa-lg"></span></a>
+              <a href="https://github.com/psyb0t/AkiraBot" target="_BLANK" title="My Code on GitHub"><span class="fa fa-github fa-lg"></span></a>
+            </div>
           </li>
           
           <li>

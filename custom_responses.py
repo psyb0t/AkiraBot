@@ -1,5 +1,6 @@
 import requests, akira, re, os
 
+from time import time
 from random import choice
 from urllib import quote_plus
 from urlparse import urlparse
@@ -245,7 +246,7 @@ class similar_artists():
 
 class now_weather():
   __patterns__ = [
-    r'^what(?:\'s| is) the weather like in ([\w\d ,;\'\-]+)(?:|\?)$'
+    r'^(?:how|what)(?:\'s| is) the weather(?:| like) in ([\w\d ,;\'\-]+)(?:|\?)$'
   ]
   
   def __process__(self, __input__):
@@ -332,3 +333,26 @@ class five_day_weather_forecast():
       )
     except:
       return choice(['I don\'t know!?', 'I have no idea!', 'No idea!'])
+
+class random_cat_gif():
+  __patterns__ = [
+    r'^show me a (cat|kitty|kitten) gif(?:|!|\.)$'
+  ]
+  
+  def __process__(self, __input__):
+    a_what = __input__
+    
+    try:
+      r = requests.get(
+        'http://thecatapi.com/api/images/get?format=src&type=gif'
+      )
+      cont = r.content
+    except:
+      return False
+    
+    filename ='/tmp/cat_%s.gif' % str(time())
+    
+    with open(filename, 'w') as f:
+      f.write(cont)
+    
+    return 'Here\'s a %s gif' % a_what, filename

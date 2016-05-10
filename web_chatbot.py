@@ -30,9 +30,11 @@ def post_handler(form):
       user_text = request.form['user_text']
       rsp = akira.fn.make_response(user_text)
       if type(rsp) == tuple:
-        response_text, response_image = rsp
-        with open(response_image, 'r') as f:
+        response_text, img_src = rsp
+        with open(img_src, 'r') as f:
           response_image = b64encode(f.read())
+        
+        os.remove(img_src)
       else:
         response_text = rsp
       

@@ -80,8 +80,8 @@ class mentions():
     try:
       if image:
         api.update_with_media(
-          status='%s [%s]' % (tweet, str(datetime.now())),
-          filename=image, in_reply_to_status_id=mention.id
+          status=tweet, filename=image,
+          in_reply_to_status_id=mention.id
         )
         
         os.remove(image)
@@ -151,5 +151,5 @@ def run():
   if not api.verify_credentials():
     akira.utils.log('Invalid credentials')
   
-  mentions.respond_latest(20)
-  direct_messages.respond_latest(20)
+  mentions.respond_latest(2)
+  direct_messages.respond_latest(2)
