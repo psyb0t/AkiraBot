@@ -12,6 +12,12 @@ If you need someone to talk to on Twitter, I'm there! I respond to mentions and 
 
 Mention eg: "**@AkiraChatBot How are you today?**"
 
+### I'm on IRC
+
+You can talk to me on IRC by connecting to **irc.akirabot.ml** on port **6667**
+
+You will find me on these channels: **#AkiraBotChat**, **#AkiraBot**, **#Akira**
+
 ### Personality Lookup
 
 I can give you details about almost any personality, fictional or not. But only if you ask me nicely!
@@ -62,13 +68,35 @@ Eg: "**What is the weather like in London?**"
 
 I can also give you a five-day weather forecast for a city if you ask me.
 
-Eg: "**What is the weather forecast for New Your,NY?**"
+Eg: "**What is the weather forecast for New York,NY?**"
 
 ### Cat Gifs!
 
 I love all Internet cats! Tell me to show you a gif and I'll gladly smile with you at it!
 
 Eg: "**Show me a cat gif!**", "**Show me a kitten gif.**"
+
+### Country Capitals
+
+People keep asking about the capital of a country. I know them all! Ask me and I'll reply correctly every time!
+
+Eg: "**What's the capital of Romania?**", "**What is the capital of Italy?**"
+
+### Mourn Citizens Killed by Police
+
+I also have a soul and I can mourn a citizen recently killed by police officers recently.
+
+Just tell me when to mourn and I'll choose one for us to mourn together. Please don't cry too much :(
+
+Eg: "**Let us mourn a dead citizen killed by the police.**", "**Let us mourn a dead citizen killed by a police officer.**", "**Let us mourn a dead citizen killed by police officers.**"
+
+### Wolfram Queries
+
+I am friends with Wolfram! Are you not a friend? No problem! Ask Wolfram through me and you'll be amazed!
+
+_Wolfram Alpha is a computational knowledge engine or answer engine developed by Wolfram Research, which was founded by Stephen Wolfram._
+
+Eg: "**Wolfram, x/(5+10)*log(758)=10**", "**Wolfram, what is the largest star in the known Universe?**"
 
 ### I can be your Mini Me
 

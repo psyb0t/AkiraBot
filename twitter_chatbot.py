@@ -17,6 +17,9 @@ responses_file = '%s/%s' % (
   akira.config.abs_path, akira.config.twitter['responses_log']
 )
 
+def _log(msg):
+  akira.utils.log('[Twitter] %s' % msg)
+
 def already_responded(_id, _type):
   if not os.path.isfile(responses_file):
     return False
@@ -61,16 +64,16 @@ class mentions():
   
   @staticmethod
   def respond(mention, send_text, image=False):
-    akira.utils.log('Responding to mention by %s - %s:%s' % (
+    _log('Responding to mention by %s - %s:%s' % (
       mention.user.screen_name, mention.id, mention.text
     ))
     
     if image and not os.path.isfile(image):
-      akira.utils.log('Inexistent file: %s' % image)
+      _log('Inexistent file: %s' % image)
       return False
     
     if len(send_text) + len(mention.user.screen_name) > 138:
-      akira.utils.log('Tweet length is over 140 characters.')
+      _log('Tweet length is over 140 characters.')
       send_text = 'I don\'t have a short answer for that. Sorry!'
     
     tweet = ('@%s %s') % (mention.user.screen_name, send_text)
@@ -115,13 +118,13 @@ class direct_messages():
   
   @staticmethod
   def respond(direct_message, send_text, image=False):
-    akira.utils.log('Responding to direct message from %s - %s:%s' % (
+    _log('Responding to direct message from %s - %s:%s' % (
       direct_message.sender.screen_name,
       direct_message.id, direct_message.text
     ))
     
     if image and not os.path.isfile(image):
-      akira.utils.log('Inexistent file: %s' % image)
+      _log('Inexistent file: %s' % image)
       return False
     
     api.create_friendship(direct_message.sender.id)
@@ -149,7 +152,7 @@ class direct_messages():
 
 def run():
   if not api.verify_credentials():
-    akira.utils.log('Invalid credentials')
+    _log('Invalid credentials')
   
   mentions.respond_latest(2)
   direct_messages.respond_latest(2)

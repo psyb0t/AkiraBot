@@ -356,3 +356,88 @@ class random_cat_gif():
       f.write(cont)
     
     return 'Here\'s a %s gif' % a_what, filename
+
+class capital_of():
+  __patterns__ = [
+    r'^what(?:\'s| is) the capital of ([\w\d ,;\'\-]+)(?:|\?)$'
+  ]
+  
+  def __process__(self, __input__):
+    country = __input__
+    
+    try:
+      r = requests.get(
+        'https://restcountries.eu/rest/v1/name/%s' % quote_plus(country)
+      )
+      cont = r.json()
+      
+      country = cont[0]['name']
+      capital = cont[0]['capital']
+    except:
+      return choice(['I don\'t know!?', 'I have no idea!', 'No idea!'])
+    
+    return 'The capital of %s is %s.' % (country, capital)
+
+class mourn_dead_citizen_killed_by_police():
+  __patterns__ = [
+    r'^let(?:\'| u)s mourn a dead citizen killed by (?:the police|police officers|a police officer)(?:!|\.|)$'
+  ]
+  
+  def __process__(self, __input__):
+    try:
+      r = requests.get(
+        'http://thecountedapi.com/api/counted'
+      )
+      cont = r.json()
+      
+      data = choice(cont)
+      
+      pron = 'she'
+      if data['sex'] == 'Male':
+        pron = 'he'
+      
+      response = 'We are mourning {name} ' \
+      'who has died by {cause} on {month} {day}, {year} ' \
+      'at the age of {age} in {city}, {state}. {pron} was ' \
+      'a brave {race} person and will be missed!'.format(
+        name=data['name'], cause=data['cause'].lower(),
+        month=data['month'], day=data['day'],
+        year=data['year'], age=data['age'],
+        city=data['city'], state=data['state'],
+        pron=pron.title(), race=data['race'].lower()
+      )
+      return response
+    except:
+      return 'I can\'t find a dead citizen killed by the police! Sorry...'
+
+class wolfram():
+  __patterns__ = [
+    r'^\wolfram(?: |:|,)(.*?)$'
+  ]
+  
+  def __process__(self, __input__):
+    from bs4 import BeautifulSoup
+    expr = __input__
+    
+    r = requests.get(
+      'http://api.wolframalpha.com/v2/query?input=%s&appid=%s' % (
+        quote_plus(expr), akira.config.wolfram['api_key']
+      )
+    )
+    
+    response = ''
+    soup = BeautifulSoup(r.content, 'lxml')
+    
+    for pod in soup.select('pod'):
+      response += '\n%s:\n' % pod['title']
+      
+      for _ in pod.select('plaintext'):
+        if _.text:
+          response += _.text + '\n'
+    
+    response = response.strip()
+    
+    if not response:
+      return 'Wolfram couldn\'t parse your query.'
+    
+    return response

@@ -36,7 +36,7 @@ def train(_file=None):
 
 if __name__ == '__main__':
   supported_methods = [
-    'train', 'terminal', 'twitter', 'web'
+    'train', 'terminal', 'twitter', 'web', 'irc'
   ]
   args = sys.argv[1:]
   if not args:

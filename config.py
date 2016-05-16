@@ -8,6 +8,25 @@ tracking_code = '''
 <!-- statcounter/analytics/whatever -->
 '''
 
+irc = {
+  'nick': 'Akira',
+  'servers': [
+    {
+      'connection': {
+        'server': 'irc.akirabot.ml',
+        'port': 6667,
+        'username': None,
+        'password': None,
+      },
+      'channels': [
+        '#AkiraBotChat',
+        '#AkiraBot',
+        '#Akira'
+      ]
+    }
+  ]
+}
+
 twitter = {
   'consumer_key': '',
   'consumer_secret': '',
@@ -30,5 +49,9 @@ lastfm = {
 }
 
 openweathermap = {
+  'api_key': ''
+}
+
+wolfram = {
   'api_key': ''
 }
